@@ -1,9 +1,10 @@
 class Product {
   final int? id;
   final String name;
-  // ... أي معلومات إضافية عن المنتج
+  final String price;
+  final String image;
 
-  Product(this.id, this.name);
+  Product({required this.id, required this.name, required this.price, required this.image});
 }
 
 class HomeResponse {

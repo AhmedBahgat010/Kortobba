@@ -26,7 +26,7 @@ class DioInterceptor extends Interceptor {
     DioException err,
     ErrorInterceptorHandler handler,
   ) async {
-    if (err.response?.statusCode == 498) {
+    if (err.response?.statusCode == 498 ||err.response?.statusCode ==401) {
       print(err.response?.statusCode);
       final loggedOut = await AuthRepository().logout();
       ServerFailure.fromDioError(err);

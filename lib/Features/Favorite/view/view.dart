@@ -105,66 +105,49 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit(),
-      child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {
-          // TODO: implement listener
-          print(state);
-        },
-        builder: (context, state) {
-          final favoriteResults = context
-              .read<HomeCubit>()
-              .favoriteResults;
-          if (state is FavoriteResultsUpdated)
-            print("${state.response.length} ffffffsssssssssssssfff");
+    return BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {
+        // TODO: implement listener
+        print(state);
+      },
+      builder: (context, state) {
+        final favoriteResults = context.watch<HomeCubit>().favoriteResults;
 
-          return Scaffold(
-              appBar: AppBar(
-                title: Text("المفضلة"),
-                leading: IconButton(
-                  icon: Icon(Icons.menu),
-                  onPressed: () {},
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("المفضلة"),
+            leading: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {},
+            ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search,
                 ),
-                actions: [
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.search,
-                    ),
-                  )
-                ],
-              ),
-              body: state is HomeLoading
-                  ? const LoadingWidget(
-                color: AppColors.primaryColor,
               )
-                  : favoriteResults.length == 0
+            ],
+          ),
+          body: ListView.builder(
+            itemCount: favoriteResults.length,
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            itemBuilder: (context, index) {
+              print(favoriteResults.length);
+
+              return favoriteResults.length == 0
                   ? SizedBox()
-                  : RefreshIndicator(
-                onRefresh: () async =>
-                    context
-                        .read<HomeCubit>()
-                        .getHome(),
-                child: ListView.builder(
-                  itemCount: 2,
-                  padding: EdgeInsets.symmetric(
-                      horizontal: 10, vertical: 10),
-                  itemBuilder: (context, index) {
-                    print(favoriteResults.length);
-                    return containerFavorite(
+                  : containerFavorite(
                       context,
                       title: favoriteResults[index].name,
-                      imageUrl:
-                      "https://kshop.kortobaa.net/storage/product/127/qhQm6jLjtF7k89rUBsRGO9AsKfRCvvg0hZ16B6k0.png",
-                      price: "123",
+                      imageUrl: favoriteResults[index].image.toString(),
+                      price: favoriteResults[index].price.toString(),
                       ontapIcon: () {},
                     );
-                  },
-                ),
-              ));
-        },
-      ),
+            },
+          ),
+        );
+      },
     );
   }
 }

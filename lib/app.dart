@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kortobaa_task/Core/Theme/LightTheme.dart';
 import 'package:kortobaa_task/Features/auth/presentaion/view/login_screen.dart';
 import 'package:kortobaa_task/Features/tabsScreens/presentaion/view/tabs_screen.dart';
 import 'Core/Utils/App Strings.dart';
+import 'Features/home/presentaion/view/manger/home_cubit.dart';
 import 'app_router.dart';
 
 class MyApp extends StatelessWidget {
@@ -24,7 +26,9 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       navigatorKey: AppRouter.navigatorKey,
       routes: AppRouter.routes,
-      home: widgetScreen,
+      home: BlocProvider(
+        create: (context) => HomeCubit()..getHome(),
+    child:  widgetScreen,)
     );
   }
 }
