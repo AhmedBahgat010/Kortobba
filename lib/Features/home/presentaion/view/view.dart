@@ -52,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, state) {
               final homeData = context.read<HomeCubit>().homeResponse;
               final allProducts = context.read<HomeCubit>().allProducts;
-
               return state is HomeLoading ||
                       categoriesState is CategoriesLoading
                   ? const LoadingWidget(
@@ -75,25 +74,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fit: BoxFit.cover,
                                   ),
                                 ),
-                                child: Stack(
-                                  children: [
-                                    PageView.builder(
-                                      itemCount: imageList.length,
-                                      controller: controller,
-                                      itemBuilder: (_, index) {
-                                        return pages[index % pages.length];
-                                      },
-                                    ),
-                                    BackdropFilter(
-                                      filter: ImageFilter.blur(
-                                          sigmaX: 20.0, sigmaY: 20),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color:
-                                                Colors.white.withOpacity(0.1)),
-                                      ),
-                                    ),
-                                  ],
+                                child: BackdropFilter(
+                                  filter: ImageFilter.blur(
+                                      sigmaX: 20.0, sigmaY: 20),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white.withOpacity(0.1)),
+                                  ),
                                 ),
                               ),
                               SizedBox(
@@ -201,12 +188,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       (context, index) {
                                                     for (var result
                                                         in homeData.results!) {
-                                                      allProducts.add(Product(id:   result.id,
-                                                        name:
-
-                                                          result.name
-                                                              .toString(),price: result.price
-                                                              .toString() ,image:  result.imageLink
+                                                      allProducts.add(Product(
+                                                          id: result.id,
+                                                          name: result.name
+                                                              .toString(),
+                                                          price: result.price
+                                                              .toString(),
+                                                          image: result
+                                                              .imageLink
                                                               .toString()));
                                                     }
 
@@ -332,10 +321,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: PageView.builder(
                                     itemCount: imageList.length,
                                     controller: controller,
+                                    onPageChanged: (value) {
+                                      setState(() {
+                                        _index = value;
+                                      });
+                                    },
                                     itemBuilder: (_, index) {
-                                      _index = index;
-                                      print(index);
-                                      return pages[index % pages.length];
+                                      return pages[index];
                                     },
                                   ),
                                 ),
@@ -343,8 +335,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 SmoothPageIndicator(
                                     controller: controller,
                                     count: pages.length,
-                                    // count: pages.length,
-
                                     effect: const WormEffect(
                                         radius: 20,
                                         dotHeight: 5,
