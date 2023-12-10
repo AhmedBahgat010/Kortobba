@@ -1,11 +1,6 @@
-
-
-
-import 'package:dartz/dartz.dart';
 import 'package:kortobaa_task/Features/auth/data/models/login_response.dart';
 import 'package:kortobaa_task/Features/auth/data/models/registration_response.dart';
 
-import '../../../../Core/Network/Remote/dio_exception.dart';
 
 abstract class AuthApi {
   Future<LoginResponse>  login({

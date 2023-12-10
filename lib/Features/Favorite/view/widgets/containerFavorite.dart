@@ -69,7 +69,7 @@ Widget containerFavorite(
         child: Center(
           child: Text(
             "نقل إلى سلة التسوق",
-            style: AppTextStyles.boldtitles.copyWith(color: AppColors.white),
+            style: AppTextStyles.boldTitles.copyWith(color: AppColors.white),
           ),
         ),
       )

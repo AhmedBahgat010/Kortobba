@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kortobaa_task/Core/Utils/Assets%20Manager.dart';
-import 'package:kortobaa_task/Core/Utils/Core%20Components.dart';
 import 'package:kortobaa_task/Core/Utils/Responsive.dart';
 
 import '../../../../Core/Utils/App Colors.dart';
 import '../../../../Core/Utils/App Textstyle.dart';
+import '../../../../Core/Utils/Widgets/ButtonTemplate/ButtonTemplate.dart';
 
 Widget codeDiscount(context) {
   return Padding(

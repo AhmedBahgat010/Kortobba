@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:kortobaa_task/Core/Utils/Responsive.dart';
 
@@ -10,6 +11,7 @@ class ContinerMyCart extends StatefulWidget {
     required this.image,
     required this.quantity,
     required this.price,
+    required this.totalPrice,
     required this.title,
     this.add,
     this.remove,
@@ -19,6 +21,7 @@ class ContinerMyCart extends StatefulWidget {
   final String image;
   final int quantity;
   final String price;
+  final String totalPrice;
   final Function()? add;
   final Function()? remove;
   final Function()? removeitem;
@@ -43,14 +46,14 @@ class _ContinerMyCartState extends State<ContinerMyCart> {
         children: [
           Row(
             children: [
-              Container(
+              SizedBox(
                 width: MediaQueryHelper.sizeFromWidth(context, 2.7),
-                child: Image.network(
+                height: MediaQueryHelper.sizeFromHeight(context, 6),
+                child: CachedNetworkImage(
+                  imageUrl:
                   widget.image,
-                  fit: BoxFit.fill,
-                  errorBuilder: (context, obj, tracer) {
-                    return Text("لا توجد صورة لعرضها");
-                  },
+                  fit: BoxFit.cover,
+
                 ),
               ),
               SizedBox(width: 10,),
@@ -122,7 +125,7 @@ class _ContinerMyCartState extends State<ContinerMyCart> {
                     padding: const EdgeInsets.symmetric(horizontal: 18.0),
                     child: Text(
                       "${widget.quantity}",
-                      style: AppTextStyles.boldtitles.copyWith(fontSize: 18),
+                      style: AppTextStyles.boldTitles.copyWith(fontSize: 18),
                     ),
                   ),
                   Container(
@@ -143,7 +146,7 @@ class _ContinerMyCartState extends State<ContinerMyCart> {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: widget.price,
+                      text: widget.totalPrice,
                       style: AppTextStyles.w800.copyWith(fontSize: 20),
                     ),
                     TextSpan(
@@ -157,7 +160,7 @@ class _ContinerMyCartState extends State<ContinerMyCart> {
                 color: AppColors.primaryColorOrange,
                 padding: EdgeInsets.all(12),
                 child: InkWell(
-                  onTap: widget.remove,
+                  onTap: widget.removeitem,
                   child: Icon(
                     Icons.delete_forever,
                     color: AppColors.white,

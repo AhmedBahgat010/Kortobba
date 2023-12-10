@@ -4,11 +4,12 @@ class AssetsManager {
   // Folders
   static const _assetsFolder = 'assets';
   static const translationsFolder = '$_assetsFolder/translations';
-  static const _svgsFolder = '$_assetsFolder/svgs';
   static const _imagesFolder = '$_assetsFolder/images';
-  static const _videosFolder = '$_assetsFolder/videos';
+  // static const _svgsFolder = '$_assetsFolder/svgs';
+  // static const _videosFolder = '$_assetsFolder/videos';
 
-  // SVGs
+  // images
+
   static const login = '$_imagesFolder/login.png';
   static const Registration = '$_imagesFolder/Registration.png';
   static const codeDiscount  = '$_imagesFolder/codeDiscount.png';

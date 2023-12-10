@@ -26,9 +26,7 @@ class MyApp extends StatelessWidget {
       theme: lightTheme,
       navigatorKey: AppRouter.navigatorKey,
       routes: AppRouter.routes,
-      home: BlocProvider(
-        create: (context) => HomeCubit()..getHome(),
-    child:  widgetScreen,)
+      home: widgetScreen
     );
   }
 }

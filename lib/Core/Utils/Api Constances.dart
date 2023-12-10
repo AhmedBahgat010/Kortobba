@@ -11,9 +11,3 @@ class APIConstances {
   static const int connectTimeout = 30000;
 
 }
-
-abstract class EndPoints {
-  static const String loginUrl = "login";
-  static const String location = "EnterLocation";
-
-}

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../Utils/App Colors.dart';
 import '../Utils/App Textstyle.dart';
 
@@ -17,15 +16,11 @@ ThemeData lightTheme = ThemeData(
     toolbarHeight: 50,
     elevation: 0,
     surfaceTintColor: AppColors.white,
-// color: AppColors.white,
     centerTitle: true,
     iconTheme: IconThemeData(color: AppColors.black),
     titleTextStyle: AppTextStyles.bold.copyWith(
       color: AppColors.black,
       fontFamily: "Tajawal",
     ),
-    // systemOverlayStyle: SystemUiOverlayStyle(
-    //     // statusBarColor: AppColors.primaryColor,
-    //     statusBarIconBrightness: Brightness.light)
   ),
 );

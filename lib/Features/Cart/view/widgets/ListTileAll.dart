@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../../Core/Utils/App Colors.dart';
 import '../../../../Core/Utils/App Textstyle.dart';
 
-Widget listTile(){
+Widget listTile({required String totalPrice, required String items}){
   return            ListTile(
       contentPadding:
       EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -18,7 +18,7 @@ Widget listTile(){
                   fontSize: 20, color: AppColors.primaryColor),
             ),
             TextSpan(
-                text: '  70,048 ج.م ',
+                text: '  $totalPrice ج.م ',
                 style: AppTextStyles.w600.copyWith(fontSize: 18)),
           ],
         ),
@@ -27,7 +27,7 @@ Widget listTile(){
         TextSpan(
           children: [
             TextSpan(
-              text: "(352)",
+              text: "($items)",
               style: AppTextStyles.w800.copyWith(
                   fontSize: 20, color: AppColors.primaryColor),
             ),

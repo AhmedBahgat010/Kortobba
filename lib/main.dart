@@ -24,9 +24,9 @@ void main() async {
   ) as String?;
 
   print(accessToken);
- accessToken!=null
-      ? widgetScreen = TabsScreen()
-      : widgetScreen = LoginScreen();
+  accessToken!=null
+      ? widgetScreen = const TabsScreen()
+      : widgetScreen = const LoginScreen();
 
 
   runApp(EasyLocalization(

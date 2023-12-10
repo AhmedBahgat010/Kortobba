@@ -10,7 +10,7 @@ Widget containerCont(
   required String price,
   required Function()? add,
   required Function()? remove,
-  required String cont,
+  required int cont,
 }) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 15.0),
@@ -44,8 +44,8 @@ Widget containerCont(
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18.0),
                 child: Text(
-                  cont,
-                  style: AppTextStyles.boldtitles.copyWith(fontSize: 18),
+                  cont.toString(),
+                  style: AppTextStyles.boldTitles.copyWith(fontSize: 18),
                 ),
               ),
               Container(
@@ -76,9 +76,9 @@ Widget containerCont(
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(
-                "$price ج.م",
+                "$price ج.م ",
                 textAlign: TextAlign.center,
-                style: AppTextStyles.boldtitles.copyWith(fontSize: 18),
+                style: AppTextStyles.boldTitles.copyWith(fontSize: 18),
               ),
             )),
       ],

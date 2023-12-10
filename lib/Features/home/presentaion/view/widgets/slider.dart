@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../Core/Utils/Assets Manager.dart';
-List imageList=[
+List<String> imageList=[
   AssetsManager.slide1,
   AssetsManager.slide2,
 ];

@@ -6,13 +6,16 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:kortobaa_task/Core/Utils/App%20Colors.dart';
 import 'package:kortobaa_task/Core/Utils/App%20Textstyle.dart';
 import 'package:kortobaa_task/Core/Utils/Assets%20Manager.dart';
-import 'package:kortobaa_task/Core/Utils/Core%20Components.dart';
 import 'package:kortobaa_task/Core/Utils/Responsive.dart';
-import 'package:kortobaa_task/Core/Utils/Shared%20Methods.dart';
 import 'package:kortobaa_task/Features/auth/presentaion/view/login_screen.dart';
 import 'package:kortobaa_task/Features/auth/presentaion/view/manger/register_cubit.dart';
 import 'package:kortobaa_task/Features/auth/presentaion/view/manger/register_state.dart';
+import 'package:kortobaa_task/Features/auth/presentaion/view/widget/HaveAccount.dart';
+import 'package:kortobaa_task/Features/auth/presentaion/view/widget/introAuth.dart';
 
+import '../../../../Core/Utils/Navigater.dart';
+import '../../../../Core/Utils/Widgets/ButtonTemplate/ButtonTemplate.dart';
+import '../../../../Core/Utils/Widgets/TextFieldTemplate/TextFieldTemplate.dart';
 import '../../../../Core/Utils/snackbars.dart';
 import '../../../../Core/service_locator/service_locator.dart';
 
@@ -22,7 +25,7 @@ class RegistrationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>RegisterCubit(),
+      create: (context) => RegisterCubit(),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccess) {
@@ -48,28 +51,11 @@ class RegistrationScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(24, 50, 24, 15),
-                        child: Column(
-                          children: [
-                            Hero(
-                              tag: "logo",
-                              child: Image.asset(
-                                AssetsManager.Registration,
-                                width: 120,
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            Text('حساب جديد',
-                                style: AppTextStyles.bold.copyWith(
-                                    fontSize: 24,
-                                    color: AppColors.primaryColorOrange)),
-                            SizedBox(height: 8),
-                            Text('مرحبا بك ، قم بملأ البيانات للتسجيل',
-                                style: AppTextStyles.w600.copyWith(
-                                    color: AppColors.darkGrey, fontSize: 16)),
-                          ],
-                        ),
+                      const MyCustomIntroWidget(
+                        heroTag: "logo",
+                        imagePath: AssetsManager.login,
+                        title: 'حساب جديد',
+                        subTitle: 'مرحبا بك ، قم بملأ البيانات للتسجيل',
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 22),
@@ -85,7 +71,8 @@ class RegistrationScreen extends StatelessWidget {
                               enableFocusBorder: false,
                               titel: "اسم المستخدم",
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(
+                                    errorText: "هذا الحقل مطلوب"),
                               ]),
                             ),
                             const SizedBox(height: 16),
@@ -97,7 +84,8 @@ class RegistrationScreen extends StatelessWidget {
                               enableFocusBorder: false,
                               titel: "البريد الالكتروني",
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(
+                                    errorText: "هذا الحقل مطلوب"),
                               ]),
                             ),
                             const SizedBox(height: 16),
@@ -109,7 +97,8 @@ class RegistrationScreen extends StatelessWidget {
                               enableFocusBorder: false,
                               titel: "الاسم الأول",
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(
+                                    errorText: "هذا الحقل مطلوب"),
                               ]),
                             ),
                             const SizedBox(height: 16),
@@ -121,7 +110,8 @@ class RegistrationScreen extends StatelessWidget {
                               enableFocusBorder: false,
                               titel: "الاسم الأخير",
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(
+                                    errorText: "هذا الحقل مطلوب"),
                               ]),
                             ),
                             const SizedBox(height: 16),
@@ -134,7 +124,8 @@ class RegistrationScreen extends StatelessWidget {
                               leadingIconColor: AppColors.greenYellow,
                               enableFocusBorder: false,
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(
+                                    errorText: "هذا الحقل مطلوب"),
                               ]),
                             ),
                             const SizedBox(height: 16),
@@ -147,7 +138,8 @@ class RegistrationScreen extends StatelessWidget {
                               leadingIconColor: AppColors.greenYellow,
                               enableFocusBorder: false,
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(
+                                    errorText: "هذا الحقل مطلوب"),
                               ]),
                             ),
                             const SizedBox(height: 32),
@@ -159,31 +151,12 @@ class RegistrationScreen extends StatelessWidget {
                               isLoading: state is RegisterLoading,
                               onPressed: registerCubit.register,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 40.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("لديك حساب ؟ ",
-                                      style: AppTextStyles.w600.copyWith(
-                                          fontSize: 18)),
-                                  InkWell(
-                                      onTap: () {
-                                        navigateTo(context, LoginScreen());
-                                      },
-                                      child: Text('الدخول.',
-                                          style: AppTextStyles.bold.copyWith(
-                                            fontSize: 18,
-                                            decoration: TextDecoration
-                                                .underline,
-                                            decorationColor: AppColors
-                                                .primaryColorOrange,
-                                            color: AppColors.primaryColorOrange,
-                                          ))), SizedBox(height: 30,),
-
-                                ],
-                              ),
+                            MyCustomHaveAccount(
+                              noAccountText: "لديك حساب ؟ ",
+                              registerText: 'الدخول.',
+                              onTap: () {
+                                navigateTo(context, LoginScreen());
+                              },
                             ),
                           ],
                         ),

@@ -1,5 +1,3 @@
-
-
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:kortobaa_task/Features/Categories/data/data_sources/Categories_api.dart';
@@ -7,7 +5,6 @@ import 'package:kortobaa_task/Features/Categories/data/data_sources/dio_Categori
 import 'package:kortobaa_task/Features/home/presentaion/data/data_sources/home_api.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../Features/auth/data/data_sources/auth_api.dart';
 import '../../Features/auth/data/data_sources/dio_auth_api.dart';
 import '../../Features/home/presentaion/data/data_sources/dio_home_api.dart';
@@ -21,13 +18,12 @@ import '../Utils/snackbars.dart';
 import '../Utils/top_snackbars.dart';
 class ServiceLocator {
   ServiceLocator._();
-
   static final instance = GetIt.instance;
 
   static Future<void> setup() async {
     // * Cache Storage
     final prefs = await SharedPreferences.getInstance();
-    instance.registerSingleton<CacheStorage>(SharedPrefsCache(prefs) as CacheStorage);
+    instance.registerSingleton<CacheStorage>(SharedPrefsCache(prefs));
 
     // * Dio
     final dio = Dio(
@@ -50,7 +46,7 @@ class ServiceLocator {
 
     // * Snackbars
     instance.registerLazySingleton<Snackbars>(() => TopSnackbars());
-    //
+
     // // * Apis
 
     instance.registerLazySingleton<AuthApi>(() => DioAuthApi());
@@ -60,7 +56,6 @@ class ServiceLocator {
 
 
 
-    //
 
   }
 }

@@ -23,7 +23,7 @@ class Price extends StatelessWidget {
               children: [
                 Text(
                   "الإجمالي",
-                  style: AppTextStyles.boldtitles
+                  style: AppTextStyles.boldTitles
                       .copyWith(color: AppColors.primaryColor),
                 ),
                 Text(
@@ -38,7 +38,7 @@ class Price extends StatelessWidget {
               children: [
                 Text(
                   "الضرائب",
-                  style: AppTextStyles.boldtitles
+                  style: AppTextStyles.boldTitles
                       .copyWith(color: AppColors.primaryColor),
                 ),
                 Text(

@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:kortobaa_task/Core/Utils/App%20Colors.dart';
-import 'package:kortobaa_task/Core/Utils/App%20Textstyle.dart';
 import 'package:kortobaa_task/Core/Utils/Assets%20Manager.dart';
-import 'package:kortobaa_task/Core/Utils/Core%20Components.dart';
 import 'package:kortobaa_task/Core/Utils/Responsive.dart';
-import 'package:kortobaa_task/Core/Utils/Shared%20Methods.dart';
 import 'package:kortobaa_task/Features/auth/presentaion/view/registration.dart';
+import 'package:kortobaa_task/Features/auth/presentaion/view/widget/HaveAccount.dart';
+import 'package:kortobaa_task/Features/auth/presentaion/view/widget/introAuth.dart';
 import 'package:kortobaa_task/Features/tabsScreens/presentaion/view/tabs_screen.dart';
-
+import '../../../../Core/Utils/Navigater.dart';
+import '../../../../Core/Utils/Widgets/ButtonTemplate/ButtonTemplate.dart';
+import '../../../../Core/Utils/Widgets/TextFieldTemplate/TextFieldTemplate.dart';
 import '../../../../Core/Utils/snackbars.dart';
 import '../../../../Core/service_locator/service_locator.dart';
 import 'manger/login_cubit.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({super.key});
+  const LoginScreen({super.key});
 
   static const routeName = '/login';
 
@@ -28,8 +28,9 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            navigateAndFinished(context, TabsScreen());
-          } else if (state is LoginError) {
+            navigateAndFinished(context, const TabsScreen());
+          }
+          else if (state is LoginError) {
             ServiceLocator.instance<Snackbars>().error(
               context: context,
               message: state.message,
@@ -48,31 +49,14 @@ class LoginScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      const MyCustomIntroWidget ( heroTag: "logo",
+                    imagePath: AssetsManager.login,
+                    title: 'تسجيل الدخول',
+                    subTitle: 'من فضلك قم بالدخول لإتمام الشراء',
+                  ),
+
                       Padding(
-                        padding: EdgeInsets.fromLTRB(24, 50, 24, 15),
-                        child: Column(
-                          children: [
-                            Hero(
-                              tag: "logo",
-                              child: Image.asset(
-                                AssetsManager.login,
-                                width: 120,
-                              ),
-                            ),
-                            SizedBox(height: 20),
-                            Text('تسجيل الدخول',
-                                style: AppTextStyles.bold.copyWith(
-                                    fontSize: 24,
-                                    color: AppColors.primaryColorOrange)),
-                            SizedBox(height: 8),
-                            Text('من فضلك قم بالدخول لإتمام الشراء',
-                                style: AppTextStyles.w600.copyWith(
-                                    color: AppColors.darkGrey, fontSize: 16)),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 22),
+                        padding: const EdgeInsets.symmetric(horizontal: 22),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -86,7 +70,8 @@ class LoginScreen extends StatelessWidget {
                               titel: "اسم المستخدم",
                               validator: FormBuilderValidators.compose([
 
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(errorText:"هذا الحقل مطلوب" ),
+
                               ]),
                             ),
                             const SizedBox(height: 16),
@@ -99,7 +84,9 @@ class LoginScreen extends StatelessWidget {
                               leadingIconColor: AppColors.greenYellow,
                               enableFocusBorder: false,
                               validator: FormBuilderValidators.compose([
-                                FormBuilderValidators.required(),
+                                FormBuilderValidators.required(errorText:"هذا الحقل مطلوب" ),
+
+
                               ]),
                             ),
                             const SizedBox(height: 32),
@@ -112,28 +99,14 @@ class LoginScreen extends StatelessWidget {
                               onPressed: loginCubit.login,
 
                             ),
-                            SizedBox(height: 30,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("ليس لديك حساب ؟ ",
-                                    style: AppTextStyles.w600.copyWith(
-                                        fontSize: 18)),
-                                InkWell(
-                                    onTap: () {
-                                      navigateTo(context, RegistrationScreen());
-                                    },
-                                    child: Text('التسجيل.',
-                                        style: AppTextStyles.bold.copyWith(
-                                          fontSize: 18,
-                                          decoration: TextDecoration.underline,
-                                          decorationColor: AppColors
-                                              .primaryColorOrange,
-                                          color: AppColors.primaryColorOrange,
-                                        ))),
-                              ],
-                            ),
-                          ],
+                            MyCustomHaveAccount(
+                              noAccountText: "ليس لديك حساب ؟ ",
+                              registerText: "التسجيل.",
+                              onTap: () {
+                                // Your custom logic goes here
+                                navigateTo(context, RegistrationScreen());
+                              },
+                            ),                          ],
                         ),
                       ),
                     ],

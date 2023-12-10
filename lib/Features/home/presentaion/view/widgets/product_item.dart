@@ -1,8 +1,5 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:kortobaa_task/Core/Utils/App%20Textstyle.dart';
-import 'package:kortobaa_task/Core/Utils/Shared%20Methods.dart';
-
 import '../../../../../Core/Utils/App Colors.dart';
 import '../../../../../Core/Utils/Responsive.dart';
 import '../../data/models/home_response.dart';
@@ -13,13 +10,15 @@ class ProductItem extends StatefulWidget {
   required this.model,
   required this.index,
   required this.ontapFavorites,
+  required this.ontapAddCart,
   required this.isFavorite,
   required this.ontapnavigate,
   Key? key,
   }) : super(key: key);
-  HomeResponse model;
+  HomeResponse? model;
   IconData isFavorite;
  final Function()? ontapFavorites;
+ final Function()? ontapAddCart;
  final Function()? ontapnavigate;
 
   int index;
@@ -65,7 +64,7 @@ class _ProductItemState extends State<ProductItem> {
                 height: MediaQueryHelper.sizeFromHeight(context, 8),
                 child: Center(
                   child: CachedNetworkImage(
-                  imageUrl: widget.model.results![widget.index].imageLink!,
+                  imageUrl: widget.model!.results![widget.index].imageLink!,
                   fit: BoxFit.contain,
               ),
                 ),
@@ -73,7 +72,7 @@ class _ProductItemState extends State<ProductItem> {
               SizedBox(
                 height: 45,
                 child: Text(
-                    widget.model.results![widget.index].description.toString(),
+                    widget.model!.results![widget.index].description.toString(),
                     maxLines: 2,
                     style: AppTextStyles.w800.copyWith(
                         fontSize: 12,
@@ -90,7 +89,7 @@ class _ProductItemState extends State<ProductItem> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text:  widget.model.results![widget.index].price.toString(),
+                            text:  widget.model!.results![widget.index].price.toString(),
                             style: AppTextStyles.w800.copyWith(
                               fontSize: 18,
                               color: AppColors.primaryColor
@@ -105,7 +104,8 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed:  widget.ontapAddCart,
+
                         icon: const Icon(Icons.add_shopping_cart_sharp),
                         iconSize: 25,
                         color: AppColors.mediumGrey),

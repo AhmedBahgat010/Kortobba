@@ -10,6 +10,8 @@ import 'package:kortobaa_task/Features/Categories/view/view.dart';
 import 'package:kortobaa_task/Features/Favorite/view/view.dart';
 import 'package:kortobaa_task/Features/home/presentaion/view/view.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import '../../../Cart/view/manger/Cart_cubit.dart';
+import '../../../home/presentaion/view/manger/home_cubit.dart';
 import '../manger/tabs_cubit.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -37,6 +39,12 @@ class _TabsScreenState extends State<TabsScreen> {
     "الحساب",
 
   ];
+  final body =  [
+    const HomeScreen(),
+    CategoriesScreen(),
+    FavoriteScreen(),
+    CartScreen(),
+  ];
 
 
   @override
@@ -44,18 +52,20 @@ class _TabsScreenState extends State<TabsScreen> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => TabsCubit()),
+        BlocProvider(
+          create: (context) =>
+          HomeCubit()
+            ..getHome(),
+        ),      BlocProvider(
+          create: (context) =>
+          CartCubit()..getCartItems()..getTotal(),
+        ),
       ],
       child: Scaffold(
         body: LazyIndexedStack(
+
           index:_bottomNavIndex,
-          children:  [
-            HomeScreen(),
-            CategoriesScreen(),
-            FavoriteScreen(),
-            CartScreen(),
-
-
-          ],
+          children: body
         ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: AppColors.primaryColorOrange,
@@ -106,7 +116,9 @@ class _TabsScreenState extends State<TabsScreen> {
       notchSmoothness: NotchSmoothness.defaultEdge,
       gapLocation: GapLocation.center,
 
-      onTap: (index) => setState(() => _bottomNavIndex = index),
+      onTap: (index) => setState(() {
+        _bottomNavIndex = index;
+      }),
 
       )),
     );

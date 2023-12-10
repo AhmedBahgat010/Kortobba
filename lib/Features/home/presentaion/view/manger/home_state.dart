@@ -5,6 +5,18 @@ import '../../data/models/home_response.dart';
 sealed class HomeState {}
 
 final class HomeInitial extends HomeState {}
+final class AddItemCart extends HomeState {
+
+  final   String message;
+
+  AddItemCart(this.message);
+}
+
+final class IndexUpdated extends HomeState {
+  final   int currentIndex;
+
+  IndexUpdated(this.currentIndex);
+}
 final class FavoriteResultsUpdated extends HomeState {
 
   final  List<Product> response;
