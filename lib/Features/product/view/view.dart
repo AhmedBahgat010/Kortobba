@@ -141,6 +141,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                         },
                                         cont: _cont,
                                         remove: () {
+                                          if(_cont !=1)
                                           setState(() {
                                             _cont--;
                                           });
